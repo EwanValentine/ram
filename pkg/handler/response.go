@@ -15,10 +15,11 @@ func Response(data interface{}, code int) (events.APIGatewayProxyResponse, error
 	}, nil
 }
 
-func ServerError(code int) (events.APIGatewayProxyResponse, error) {
+func ServerError(err error) (events.APIGatewayProxyResponse, error) {
+	log.Error("ERROR:", err)
 	return events.APIGatewayProxyResponse{
-		StatusCode: code,
-		Body:       http.StatusText(code),
+		StatusCode: http.StatusInternalServerError,
+		Body:       http.StatusText(http.StatusInternalServerError),
 	}, nil
 }
 
